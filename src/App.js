@@ -1,5 +1,14 @@
 import React, { Component } from "react";
-import { LineChart, Line } from "recharts";
+import {
+  ResponsiveContainer,
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ReferenceLine,
+} from "recharts";
 
 const data = [
   {
@@ -6213,9 +6222,23 @@ class App extends Component {
     return (
       <>
         <h1>Vizualizing data from sensor</h1>
-        <LineChart width={1920} height={500} data={data}>
-          <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-        </LineChart>
+        <ResponsiveContainer width="100%" height={500}>
+          <AreaChart data={data} margin={{ right: 10, left: 10 }}>
+            <defs>
+              <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+                <stop offset="75%" stopColor="#8884d8" stopOpacity={0} />
+              </linearGradient>
+            </defs>
+            <Area
+              type="monotone"
+              dataKey="uv"
+              stroke="#8884d8"
+              fillOpacity={1}
+              fill="url(#colorUv)"
+            />
+          </AreaChart>
+        </ResponsiveContainer>
       </>
     );
   }
